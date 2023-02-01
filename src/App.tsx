@@ -12,9 +12,8 @@ const App : React.FC = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    getCharacters(1);
-    console.log('useEffect Triggered');
-  },[]);
+    getCharacters(currentPage);
+  },[currentPage]);
 
   // Some dummy state representing disney characters
   const [characters, setCharacters] = useState<Array<DisneyCharacter>>([
@@ -24,8 +23,7 @@ const App : React.FC = () => {
       const responseFetch = await fetch(`https://api.disneyapi.dev/characters?pages={pageNumber}`);
       if (responseFetch.ok) {
         const jsonFetch = await responseFetch.json() as {data:DisneyCharacter[]};
-        setCharacters(jsonFetch.data);
-        console.log(jsonFetch);
+        setCharacters(jsonFetch.data);  
       }
     }
     catch (err) {
@@ -39,6 +37,7 @@ const App : React.FC = () => {
     <div className="page">
       <Header currentPage={currentPage} />
       <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <CharacterContainer characters={characters} />
       <CharacterContainer characters={characters} />
     </div>
   );
