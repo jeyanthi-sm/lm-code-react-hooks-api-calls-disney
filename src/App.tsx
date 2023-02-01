@@ -6,6 +6,7 @@ import CharacterContainer from './components/character_container';
 import Navigation from './components/navigation';
 import { DisneyCharacter } from './disney_character';
 import { json } from 'stream/consumers';
+export const FavouritesContext = React.createContext<number[]>( []);
 
 const App : React.FC = () => {
 
@@ -21,10 +22,12 @@ const App : React.FC = () => {
   const [characterFavourites,setCharacterFavourites] = useState<Array<number>>([]);
   const getCharacters = async (pageNumber: number) => {
     try {
-      const responseFetch = await fetch(`https://api.disneyapi.dev/characters?pages={pageNumber}`);
+      console.log(pageNumber);
+      const responseFetch = await fetch(`https://api.disneyapi.dev/characters?page=${pageNumber}`);
       if (responseFetch.ok) {
         const jsonFetch = await responseFetch.json() as {data:DisneyCharacter[]};
         setCharacters(jsonFetch.data);  
+        console.trace(`value set ${jsonFetch.data[1].name}`);
       }
     }
     catch (err) {
@@ -35,14 +38,17 @@ const App : React.FC = () => {
 
 
   return (
+    <FavouritesContext.Provider value={characterFavourites}>
     <div className="page">
       <Header currentPage={currentPage} />
       <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <CharacterContainer characters={characters}
-                          characterFavourites={characterFavourites}
                           updateFavourites={setCharacterFavourites}  />
     </div>
+    </FavouritesContext.Provider>
+
   );
 }
+
 
 export default App;
