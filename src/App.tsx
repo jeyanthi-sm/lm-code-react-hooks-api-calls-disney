@@ -18,22 +18,7 @@ const App : React.FC = () => {
 
   // Some dummy state representing disney characters
   const [characters, setCharacters] = useState<Array<DisneyCharacter>>([
-    /*{
-      _id: 6,
-      name: "'Olu Mel",
-      imageUrl: "https://static.wikia.nocookie.net/disney/images/6/61/Olu_main.png"
-    },
-    {
-      _id: 25,
-      name: "Abu",
-      imageUrl: "https://static.wikia.nocookie.net/disney/images/3/3f/Profile_-_Abu.png"
-    },
-    {
-      _id: 30,
-      name: "Ace",
-      imageUrl: "https://static.wikia.nocookie.net/disney/images/1/1e/Profile_-_Ace.png"
-    }, */
-  ]);
+    ]);
   const getCharacters = async (pageNumber: number) => {
     try {
       const responseFetch = await fetch(`https://api.disneyapi.dev/characters?pages={pageNumber}`);
