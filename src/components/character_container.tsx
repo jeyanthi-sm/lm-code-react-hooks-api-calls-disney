@@ -8,7 +8,6 @@ interface CharacterContainerProps {
 }
 // for our props we can reuse the DisneyCharacter interface
 // - defining an anonymous type that just has one property - an array of DisneyCharacter
-//const CharacterContainer : React.FC<{ characters: Array<DisneyCharacter>}> = ( { characters,characterFavourites,updateFavourites}) => {
     const CharacterContainer : React.FC<CharacterContainerProps> = ( { characters,updateFavourites}) => {
 
 	// this function separates our array of DisneyCharacters into rows and columns

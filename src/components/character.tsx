@@ -1,6 +1,6 @@
 import { DisneyCharacter } from "../disney_character";
-import { useContext} from 'react';
-import { FavouritesContext} from '../App';
+import React, { useContext} from 'react';
+import { FavouritesContext } from '../App';
 
 // character.tsx
 interface CharacterProps{
@@ -23,14 +23,23 @@ const Character : React.FC<CharacterProps> = ( { character, updateFavourites }) 
 const characterFavourites = useContext(FavouritesContext);
 
   function toggleFavouriteForCharacter(characterId : number) {
-    if(!(characterId)) {
-        // add to favourites
-        updateFavourites([...characterFavourites, characterId]);
+    console.log(`inside toggleFavouritesForCharacter ${characterId}`);
+    if(!characterFavourites.includes(characterId)) {
+      // add to favourites
+      updateFavourites([...characterFavourites, characterId]);
+      for (let i=0; i< characterFavourites.length; ++i)
+        console.log(characterFavourites[i]);
+      console.log(characterId);
+      console.log(updateFavourites.length);
     }
     else {
       // remove from favourites
       const updatedFavourites = characterFavourites.filter((id) => id !== characterId);
       updateFavourites(updatedFavourites);
+      for (let i=0; i< characterFavourites.length; ++i)
+        console.log(characterFavourites[i]);
+      console.log(characterId);
+      console.log(updateFavourites.length);
     }
   }
   
@@ -40,11 +49,10 @@ const characterFavourites = useContext(FavouritesContext);
       <h2>{character.name}</h2>
 
       <div className="character-item__actions" onClick={() => toggleFavouriteForCharacter(character._id)}>
-        Add to Favourites
+      {!characterFavourites.includes(character._id) ? "Add to Favourites" : "Favourited"}
       </div>
       <img className="character-item__img" src={imageSrc} alt={character.name} />
 
     </article>
 ) }
-
 export default Character
