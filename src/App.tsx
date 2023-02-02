@@ -23,8 +23,8 @@ const App : React.FC = () => {
     try {
       const responseFetch = await fetch(`https://api.disneyapi.dev/characters?page=${pageNumber}`);
       if (responseFetch.ok) {
-        const jsonFetch = await responseFetch.json() as {data:DisneyCharacter[]};
-        setCharacters(jsonFetch.data);  
+        const json = await responseFetch.json() as {data:DisneyCharacter[]};
+        setCharacters(json.data);  
       }
     }
     catch (err) {
